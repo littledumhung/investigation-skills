@@ -1,0 +1,4 @@
+interface:
+  display_name: "Internet Archaeologist"
+  short_description: "從舊網址、截圖及模糊記憶調查遺失網站、遊戲與軟體，還原歷史證據"
+  default_prompt: "使用 $internet-archaeologist，從我的線索調查曾公開存在的內容，列出候選、歷史證據與無法確認之處。"
