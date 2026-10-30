@@ -1,16 +1,22 @@
 # Investigation Skills
 
-由 [littledumhung](https://github.com/littledumhung) 維護的個人 Codex skill 工具箱，包含三個完整 skill 與各自的 Python 工具、參考資料、範例和測試。
+Three agent skills for investigating visual clues, recovering internet history, and checking claims against evidence.
 
-| Skill | 用途 | 文件 |
+Each skill combines a research workflow with Python utilities, reference material, report templates, and tests. Built for Codex, the collection helps turn incomplete clues into sourced findings with explicit uncertainty.
+
+## The collection
+
+| Skill | What it investigates | Guide |
 | --- | --- | --- |
-| Sherlock Investigator | 看圖定位、GeoGuessr 座標推理、物品及媒體來源調查 | [使用說明](skills/sherlock-investigator/README.md) |
-| Internet Archaeologist | 尋找消失網站、舊遊戲、軟體與歷史網頁 | [使用說明](skills/internet-archaeologist/README.md) |
-| Truth Engine | 主張拆解、來源查核、反證及證據報告 | [使用說明](skills/truth-engine/README.md) |
+| **Sherlock Investigator** | Capture locations, GeoGuessr-style coordinates, object models, and media provenance from visual clues | [Documentation](skills/sherlock-investigator/README.md) |
+| **Internet Archaeologist** | Lost websites, forgotten games, abandoned software, renamed projects, and historical changes | [Documentation](skills/internet-archaeologist/README.md) |
+| **Truth Engine** | Original sources, numerical accuracy, contradictory evidence, and the context behind circulating media | [Documentation](skills/truth-engine/README.md) |
 
-## 安裝到 Codex
+The workflows emphasize source provenance, competing explanations, and checks for contradictory evidence. Reports distinguish observations from interpretations and identify what remains unverified.
 
-需要 Python 3.11+、Git，以及支援 skills 的 Codex 環境。在終端機執行：
+## Quick start
+
+Requires **Python 3.11+**, **Git**, and a Codex environment with skill support.
 
 ```sh
 git clone https://github.com/littledumhung/investigation-skills.git
@@ -19,38 +25,97 @@ python -m pip install -r requirements.txt
 python tools/install_skills.py
 ```
 
-安裝工具尊重 `CODEX_HOME`，預設複製到 `~/.codex/skills`。已有同名 skill 會停止，不會覆蓋；若要保留舊版，可先將舊資料夾移到 skills 目錄外備份。可指定 `--dest /path/to/skills`，或用 `--dry-run` 預覽。安裝後開啟新對話使用。
+The installer copies all three skills into `$CODEX_HOME/skills`, or `~/.codex/skills` when `CODEX_HOME` is unset. Open a new Codex conversation after installation.
 
-```text
-使用 $sherlock-investigator 分析這張看圖定位題，給我座標、依據與誤差範圍。
-使用 $internet-archaeologist 找回我記憶中的舊網站，整理候選與存檔證據。
-使用 $truth-engine 查證這段說法，找原始來源並搜尋反證。
+Existing skill folders are never overwritten. If a name is already installed, move the existing folder outside the skills directory before installing its replacement.
+
+To preview an installation or choose another destination:
+
+```sh
+python tools/install_skills.py --dry-run
+python tools/install_skills.py --dest /path/to/skills
 ```
 
-## Python 工具與相關套件
+## Use in Codex
 
-`requirements.txt` 提供 jsonschema（報告驗證）與 Pillow（圖片處理）；`requirements-dev.txt` 另含 pytest、PyYAML。各 skill 的 `pyproject.toml` 保留套件定義。
+Invoke a skill by name and provide the material you want investigated.
 
-三個原始套件都使用頂層模組名稱 `scripts`，因此請在各 skill 資料夾內直接執行 CLI；如需 `pip install .` 與命令列入口，每個套件須使用獨立虛擬環境，避免互相覆蓋。
+**Investigate an image**
+
+```text
+Use $sherlock-investigator to locate the camera position in this GeoGuessr
+image. Compare plausible locations and give coordinates, supporting clues,
+and an estimated error range.
+```
+
+**Find something from the past**
+
+```text
+Use $internet-archaeologist to find a browser game I played around 2012.
+It had a blue block character and grid-based puzzles. Compare candidates
+and link to archived pages that support or rule out each match.
+```
+
+**Check a claim**
+
+```text
+Use $truth-engine to check this article's claim that a treatment reduces
+risk by 40%. Trace the original study, distinguish relative and absolute
+risk, and look for evidence that challenges the claim.
+```
+
+Skill instructions and supporting documentation are primarily in Traditional Chinese. Request English in your prompt for English responses.
+
+## How it works
+
+The agent handles interpretation, research strategy, source comparison, and conclusions. The Python tools handle deterministic tasks such as hashing media, collecting archive metadata, validating evidence records, performing calculations, and generating reports.
+
+| Capability | Requirement |
+| --- | --- |
+| Report validation | `jsonschema`, included in `requirements.txt` |
+| Local image processing | `Pillow`, included in `requirements.txt` |
+| Video frame extraction in Sherlock | `ffmpeg` installed separately and available on `PATH` |
+| Web research, maps, street view, OCR, and visual interpretation | Suitable tools available to the host agent |
+| Optional search providers | Provider-specific configuration; see each skill's `.env.example` |
+
+The Python CLIs assist investigations; they do not independently perform the agent's semantic reasoning or establish that a claim is true. Installing the collection does not add search, map, or vision services to the host. A separate API key is not required to invoke the skills with the host's existing tools; optional providers may require one.
+
+## Python utilities
+
+Run each CLI from its own skill directory:
 
 ```sh
 cd skills/truth-engine
 python scripts/cli.py --help
 ```
 
-Sherlock 影片抽幀另需系統安裝 ffmpeg 並加入 PATH。搜尋、地圖、街景、OCR 與圖片理解取決於宿主提供的工具；這些 Python 套件本身不是自主研究模型。各 `.env.example` 僅供選用 API 設定；一般由宿主搜尋工具啟動，不需另買 API key。
+Each skill includes its own `pyproject.toml`. All three packages currently use the top-level Python module name `scripts`; use a separate virtual environment for each package if installing them with `pip install .` or using their installed command-line entry points. Direct script execution avoids installing those overlapping packages together.
 
-## 驗證
+## Development
+
+Install the development dependencies and run the offline validation suite:
 
 ```sh
 python -m pip install -r requirements-dev.txt
 python tools/validate_all.py
 ```
 
-驗證工具以獨立程序執行三套測試，避免 `scripts` 模組衝突；缺少 ffmpeg 的影片測試會顯示 skipped。GitHub Actions 在 Ubuntu 與 Windows、Python 3.11 / 3.12 執行相同檢查，並安裝 ffmpeg。
+The validator checks skill metadata and linked resources, then runs each test suite in a separate process. The video extraction test is skipped when `ffmpeg` is unavailable.
 
-各 skill 內的 VALIDATION.md / VERIFICATION.md 是原始版本的驗證紀錄；Internet Archaeologist 的執行產物 `examples/results` 不納入版本控制，可依範例重建。
+[GitHub Actions](https://github.com/littledumhung/investigation-skills/actions) is configured to run validation on Windows and Ubuntu with Python 3.11 and 3.12, including installation of `ffmpeg`.
 
-## 授權
+```text
+skills/
+  sherlock-investigator/   Visual investigation workflows and media tools
+  internet-archaeologist/  Archive research and historical evidence tools
+  truth-engine/           Claim verification and evidence reporting tools
+tools/
+  install_skills.py       Install the collection into a skill directory
+  validate_all.py         Validate metadata, resources, and test suites
+```
 
-三個 skill 保留原始 MIT 授權及著作權聲明，詳見各資料夾的 LICENSE。本 repo 的整合工具與文件亦採 [MIT](LICENSE)。相依套件與外部服務各依自身授權和條款提供。
+Generated investigation output is excluded from version control. The per-skill `VALIDATION.md` and `VERIFICATION.md` files document earlier validation runs; they are historical records, not live CI status.
+
+## License
+
+[MIT](LICENSE). Each skill retains its own license and copyright notices. Third-party dependencies and external services remain subject to their respective licenses and terms.
