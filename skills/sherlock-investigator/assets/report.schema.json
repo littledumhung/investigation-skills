@@ -1,0 +1,449 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^case-[a-f0-9]{20}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "language": {
+      "enum": [
+        "zh-TW",
+        "en"
+      ]
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "refused"
+      ]
+    },
+    "privacy": {
+      "enum": [
+        "pending_review",
+        "reviewed_public",
+        "refused"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "quick",
+        "standard",
+        "deep"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "calls": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "searches": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "candidates": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "calls",
+        "searches",
+        "candidates",
+        "seconds"
+      ],
+      "additionalProperties": true
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object"
+      }
+    },
+    "answer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "undetermined"
+      ]
+    },
+    "hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "supporting_clues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contradicting_clues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unverified": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "next_step": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "undetermined"
+            ]
+          },
+          "independent_strong_sources": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "contradiction_checked": {
+            "type": "boolean"
+          },
+          "has_contradiction": {
+            "type": "boolean"
+          },
+          "location": {
+            "type": "object",
+            "required": [
+              "latitude",
+              "longitude",
+              "role",
+              "verification",
+              "accuracy_m"
+            ],
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "longitude": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "role": {
+                "enum": [
+                  "poi_center",
+                  "building_center",
+                  "camera_position",
+                  "estimated_photo_position"
+                ]
+              },
+              "verification": {
+                "enum": [
+                  "verified",
+                  "estimated"
+                ]
+              },
+              "accuracy_m": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "supporting_clues",
+          "contradicting_clues",
+          "unverified",
+          "next_step",
+          "score",
+          "confidence",
+          "independent_strong_sources",
+          "contradiction_checked",
+          "has_contradiction"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_id": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "original_observation": {
+            "type": "string"
+          },
+          "interpretation": {
+            "type": "string"
+          },
+          "supporting_claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hypothesis_id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "direct",
+              "strong",
+              "weak",
+              "contradiction",
+              "missing"
+            ]
+          },
+          "published_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "uncertain": {
+            "type": "boolean"
+          },
+          "independence_group": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "evidence_id",
+          "source",
+          "source_type",
+          "observed_at",
+          "original_observation",
+          "interpretation",
+          "supporting_claim_ids",
+          "limitations",
+          "hypothesis_id",
+          "kind"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "graph": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "Claim",
+                  "Observation",
+                  "Source",
+                  "Hypothesis",
+                  "Location",
+                  "Object",
+                  "Media"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "relation": {
+                "enum": [
+                  "SUPPORTS",
+                  "CONTRADICTS",
+                  "DERIVED_FROM",
+                  "MATCHES",
+                  "REQUIRES_VERIFICATION"
+                ]
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "relation"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "additionalProperties": true
+    },
+    "contradiction_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hypothesis_id": {
+            "type": "string"
+          },
+          "finding": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hypothesis_id",
+          "finding"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_step": {
+      "type": "string"
+    },
+    "score_notice": {
+      "type": "string"
+    },
+    "location": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "latitude",
+            "longitude",
+            "role",
+            "verification",
+            "accuracy_m"
+          ],
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "role": {
+              "enum": [
+                "poi_center",
+                "building_center",
+                "camera_position",
+                "estimated_photo_position"
+              ]
+            },
+            "verification": {
+              "enum": [
+                "verified",
+                "estimated"
+              ]
+            },
+            "accuracy_m": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "case_id",
+    "created_at",
+    "language",
+    "status",
+    "privacy",
+    "mode",
+    "budget",
+    "inputs",
+    "answer",
+    "confidence",
+    "hypotheses",
+    "evidence",
+    "graph",
+    "contradiction_checks",
+    "limitations",
+    "next_step",
+    "score_notice"
+  ],
+  "additionalProperties": true,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sherlock Investigation Report"
+}
