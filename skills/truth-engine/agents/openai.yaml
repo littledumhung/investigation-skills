@@ -1,0 +1,6 @@
+interface:
+  display_name: "Truth Engine"
+  short_description: "拆解爭議主張、追溯原始來源，逐項核對證據、數據及反證並清楚標示限制"
+  default_prompt: "使用 $truth-engine 查核以下內容，逐項列出證據、反證與目前無法確認的部分。"
+policy:
+  allow_implicit_invocation: true
