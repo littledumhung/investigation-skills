@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sherlock Investigator"
+  short_description: "GeoGuessr 類看圖定位答題：找拍攝點經緯度、比較候選並標示估計精度"
+  default_prompt: "使用 $sherlock-investigator 解這題看圖定位，優先給拍攝點經緯度、精度與依據。"
