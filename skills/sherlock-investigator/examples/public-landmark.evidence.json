@@ -1,0 +1,138 @@
+{
+  "hypotheses": [
+    {
+      "id": "H1",
+      "name": "合成公共地標 A / Synthetic landmark A",
+      "type": "GEOLOCATION",
+      "supporting_clues": [
+        "Two arches"
+      ],
+      "contradicting_clues": [],
+      "unverified": [],
+      "next_step": "Compare dated official public-site plans."
+    },
+    {
+      "id": "H2",
+      "name": "合成公共地標 B / Synthetic landmark B",
+      "type": "GEOLOCATION",
+      "supporting_clues": [
+        "Two arches"
+      ],
+      "contradicting_clues": [],
+      "unverified": [],
+      "next_step": "Compare dated official public-site plans."
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "hypothesis_id": "H1",
+      "kind": "direct",
+      "source": "synthetic-fixture:plan-a",
+      "source_type": "synthetic",
+      "observed_at": "2026-10-30T00:00:00+00:00",
+      "published_at": null,
+      "original_observation": "Two arches match the public plan.",
+      "interpretation": "Synthetic demonstration only; not real-world evidence.",
+      "supporting_claim_ids": [
+        "claim-1"
+      ],
+      "limitations": [
+        "Synthetic demonstration"
+      ],
+      "independence_group": "plan-a"
+    },
+    {
+      "evidence_id": "E2",
+      "hypothesis_id": "H1",
+      "kind": "strong",
+      "source": "synthetic-fixture:survey-a",
+      "source_type": "synthetic",
+      "observed_at": "2026-10-30T00:00:00+00:00",
+      "published_at": null,
+      "original_observation": "Road bends to the right behind the building.",
+      "interpretation": "Synthetic demonstration only; not real-world evidence.",
+      "supporting_claim_ids": [
+        "claim-1"
+      ],
+      "limitations": [
+        "Synthetic demonstration"
+      ],
+      "independence_group": "survey-a"
+    },
+    {
+      "evidence_id": "E3",
+      "hypothesis_id": "H2",
+      "kind": "strong",
+      "source": "synthetic-fixture:plan-b",
+      "source_type": "synthetic",
+      "observed_at": "2026-10-30T00:00:00+00:00",
+      "published_at": null,
+      "original_observation": "Similar arches exist.",
+      "interpretation": "Synthetic demonstration only; not real-world evidence.",
+      "supporting_claim_ids": [
+        "claim-1"
+      ],
+      "limitations": [
+        "Synthetic demonstration"
+      ],
+      "independence_group": "plan-b"
+    },
+    {
+      "evidence_id": "E4",
+      "hypothesis_id": "H2",
+      "kind": "contradiction",
+      "source": "synthetic-fixture:survey-b",
+      "source_type": "synthetic",
+      "observed_at": "2026-10-30T00:00:00+00:00",
+      "published_at": null,
+      "original_observation": "The road is straight; incompatible with the input.",
+      "interpretation": "Synthetic demonstration only; not real-world evidence.",
+      "supporting_claim_ids": [
+        "claim-1"
+      ],
+      "limitations": [
+        "Synthetic demonstration"
+      ],
+      "independence_group": "survey-b"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "claim-1",
+      "type": "Claim",
+      "label": "Synthetic public layout match"
+    },
+    {
+      "id": "obs-1",
+      "type": "Observation",
+      "label": "Two arches"
+    },
+    {
+      "id": "source-1",
+      "type": "Source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "obs-1",
+      "to": "claim-1",
+      "relation": "SUPPORTS"
+    },
+    {
+      "from": "obs-1",
+      "to": "source-1",
+      "relation": "DERIVED_FROM"
+    }
+  ],
+  "contradiction_checks": [
+    {
+      "hypothesis_id": "H1",
+      "finding": "Synthetic plan and road comparison show no contradiction."
+    },
+    {
+      "hypothesis_id": "H2",
+      "finding": "Synthetic road layout contradicts input."
+    }
+  ]
+}
