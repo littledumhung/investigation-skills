@@ -1,0 +1,372 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-10-30",
+  "checked_at": "2026-10-30T17:19:47.572869+08:00",
+  "mode": "deep",
+  "summary": "跨期間比較具誤導性；單季50與全年100的算術差為-50%，不能證明營收趨勢暴跌，更不能證明詐欺。兩筆金額只在合成題目中給定，實際營收與詐欺均未獲驗證。",
+  "limitations": [
+    "唯一素材是使用者題目合成數據；未取得報導、公司身分、財報或獨立來源。",
+    "禁止連線，未搜尋外網；僅檢索題目文字。",
+    "未知財年、會計口徑、季節性與2025第一季、2025第四季及2026全年數字。",
+    "語義拆解、證據關係、反證策略與判定由 agent 撰寫；CLI 僅驗證及排版。"
+  ],
+  "precise_wording": "依題目假設，A公司2025全年營收100百萬美元，2026第一季50百萬美元。期間長度不同，無法據此計算同比或環比增減；缺乏管理層詐欺證據，也不能據此斷言沒有詐欺。",
+  "claims": [
+    {
+      "claim_id": "C1",
+      "original_text": "2025全年營收100百萬美元",
+      "normalized_claim": "A公司2025全年營收100百萬美元",
+      "claim_type": "NUMERIC",
+      "subject": "A公司",
+      "predicate": "營收",
+      "object": "100百萬美元",
+      "time_scope": "2025全年",
+      "geographic_scope": "未提供",
+      "required_evidence": [
+        "同口徑原始財報與相同長度比較期間"
+      ],
+      "checkability": "題目內可檢查邏輯；真實事實缺原始資料",
+      "ambiguity": [
+        "A公司身分、財年及合併口徑未知",
+        "金額為合成前提，不是真實查得資料"
+      ],
+      "dependencies": []
+    },
+    {
+      "claim_id": "C2",
+      "original_text": "2026第一季50百萬美元",
+      "normalized_claim": "A公司2026第一季50百萬美元",
+      "claim_type": "NUMERIC",
+      "subject": "A公司",
+      "predicate": "營收",
+      "object": "50百萬美元",
+      "time_scope": "2026第一季",
+      "geographic_scope": "未提供",
+      "required_evidence": [
+        "同口徑原始財報與相同長度比較期間"
+      ],
+      "checkability": "題目內可檢查邏輯；真實事實缺原始資料",
+      "ambiguity": [
+        "A公司身分、財年及合併口徑未知",
+        "金額為合成前提，不是真實查得資料"
+      ],
+      "dependencies": []
+    },
+    {
+      "claim_id": "C3",
+      "original_text": "因此營收暴跌50%",
+      "normalized_claim": "A公司營收暴跌50%",
+      "claim_type": "COMPARATIVE",
+      "subject": "A公司",
+      "predicate": "營收",
+      "object": "營收暴跌50%",
+      "time_scope": "2025全年與2026第一季",
+      "geographic_scope": "未提供",
+      "required_evidence": [
+        "同口徑原始財報與相同長度比較期間"
+      ],
+      "checkability": "題目內可檢查邏輯；真實事實缺原始資料",
+      "ambiguity": [
+        "A公司身分、財年及合併口徑未知",
+        "金額為合成前提，不是真實查得資料"
+      ],
+      "dependencies": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "claim_id": "C4",
+      "original_text": "而且證明管理層詐欺",
+      "normalized_claim": "A公司前述營收數據證明管理層詐欺",
+      "claim_type": "CAUSAL",
+      "subject": "A公司管理層",
+      "predicate": "被認定詐欺",
+      "object": "前述營收數據證明管理層詐欺",
+      "time_scope": "未提供具體行為期間",
+      "geographic_scope": "未提供",
+      "required_evidence": [
+        "可核實的不實陳述、行為與主觀故意等相關證據；適用規範未知"
+      ],
+      "checkability": "題目內可檢查邏輯；真實事實缺原始資料",
+      "ambiguity": [
+        "A公司身分、財年及合併口徑未知",
+        "金額為合成前提，不是真實查得資料"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "url": null,
+      "missing_reason": "user supplied synthetic",
+      "title": "使用者題目（合成，非公司財報）",
+      "author": null,
+      "published_at": null,
+      "updated_at": null,
+      "accessed_at": "2026-10-30T17:19:47.572869+08:00",
+      "kind": "PRIMARY",
+      "derived_from": [],
+      "content": "報導說A公司2025全年營收100百萬美元、2026第一季50百萬美元，因此營收暴跌50%，而且證明管理層詐欺。查證。",
+      "content_sha256": "abaaaefd7fcaaeaedee0fddeab588aa08cd4a24e9871c6a6c87e03d7422d9eb5",
+      "independence_group": "synthetic-input",
+      "publication_type": "合成題目；僅對題目措辭為第一手",
+      "correction_status": "UNKNOWN",
+      "accessible": true,
+      "event_at": null,
+      "spoken_at": null,
+      "collected_at": null,
+      "effective_from": null,
+      "effective_until": null
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "claim_id": "C1",
+      "source_id": "S1",
+      "relation": "CONTEXT",
+      "summary": "數字只獲題目給定；無真實公司財報可供核實。",
+      "locator": "題目唯一段落：2025全年營收100百萬美元"
+    },
+    {
+      "evidence_id": "E2",
+      "claim_id": "C2",
+      "source_id": "S1",
+      "relation": "CONTEXT",
+      "summary": "數字只獲題目給定；無真實季度財報可供核實。",
+      "locator": "題目唯一段落：2026第一季50百萬美元"
+    },
+    {
+      "evidence_id": "E3",
+      "claim_id": "C3",
+      "source_id": "S1",
+      "relation": "CONTRADICTS",
+      "summary": "K1算術可重現-50%，但全年與單季不可直接作趨勢比較；同比需2025第一季，環比需2025第四季。",
+      "locator": "題目唯一段落：因此營收暴跌50%"
+    },
+    {
+      "evidence_id": "E4",
+      "claim_id": "C4",
+      "source_id": "S1",
+      "relation": "CONTEXT",
+      "summary": "數據與跨期差異未提供不實陳述、故意、交易或調查證據，不能成立詐欺推論；未驗證不等於已證明無詐欺。",
+      "locator": "題目唯一段落：而且證明管理層詐欺"
+    }
+  ],
+  "quotes": [
+    {
+      "quote_id": "Q1",
+      "source_id": "S1",
+      "text": "報導說A公司2025全年營收100百萬美元、2026第一季50百萬美元，因此營收暴跌50%，而且證明管理層詐欺。查證。",
+      "locator": "題目唯一段落"
+    }
+  ],
+  "datasets": [
+    {
+      "dataset_id": "D1",
+      "source_id": "S1",
+      "locator": "題目唯一段落",
+      "description": "2025全年100；2026第一季50；單位百萬美元；合成前提。"
+    }
+  ],
+  "calculations": [
+    {
+      "calculation_id": "K1",
+      "operation": "percent_change",
+      "values": [
+        "100",
+        "50"
+      ],
+      "sources": [
+        "S1"
+      ],
+      "unit": "輸入百萬美元；輸出%",
+      "formula": "(new-old)/old*100",
+      "result": "-50.0000",
+      "rounding": "ROUND_HALF_UP",
+      "round_digits": 4,
+      "assumptions": [
+        "僅重現報導算式，不代表可比營收成長率",
+        "全年與第一季期間不相等，不能作同比或環比"
+      ]
+    }
+  ],
+  "contradictions": [
+    {
+      "contradiction_id": "X1",
+      "claim_id": "C3",
+      "evidence_ids": [
+        "E3"
+      ],
+      "resolution": "差值百分比算術正確，經濟意義的比較基準不成立。"
+    }
+  ],
+  "verdicts": [
+    {
+      "verdict_id": "V1",
+      "claim_id": "C1",
+      "verdict": "UNVERIFIED",
+      "evidence_summary": "數字只獲題目給定；無真實公司財報可供核實。",
+      "strongest_support": [],
+      "strongest_counterevidence": [],
+      "source_quality": "單一合成題目；不構成實際營收或管理層行為的獨立驗證。",
+      "limitations": [
+        "唯一素材是使用者題目合成數據；未取得報導、公司身分、財報或獨立來源。",
+        "禁止連線，未搜尋外網；僅檢索題目文字。",
+        "未知財年、會計口徑、季節性與2025第一季、2025第四季及2026全年數字。",
+        "語義拆解、證據關係、反證策略與判定由 agent 撰寫；CLI 僅驗證及排版。"
+      ],
+      "confidence_level": "LOW",
+      "checked_at": "2026-10-30T17:19:47.572869+08:00",
+      "counterevidence_search": {
+        "queries": [
+          "離線檢索題目：金額、更正、原始財報"
+        ],
+        "status": "NONE_FOUND",
+        "notes": "初判：題目有此金額；關鍵前提：須有原始財報；可推翻條件：原始數字或口徑不同。搜尋題目未含更正或原始文件；保留UNVERIFIED。 未查外網。"
+      }
+    },
+    {
+      "verdict_id": "V2",
+      "claim_id": "C2",
+      "verdict": "UNVERIFIED",
+      "evidence_summary": "數字只獲題目給定；無真實季度財報可供核實。",
+      "strongest_support": [],
+      "strongest_counterevidence": [],
+      "source_quality": "單一合成題目；不構成實際營收或管理層行為的獨立驗證。",
+      "limitations": [
+        "唯一素材是使用者題目合成數據；未取得報導、公司身分、財報或獨立來源。",
+        "禁止連線，未搜尋外網；僅檢索題目文字。",
+        "未知財年、會計口徑、季節性與2025第一季、2025第四季及2026全年數字。",
+        "語義拆解、證據關係、反證策略與判定由 agent 撰寫；CLI 僅驗證及排版。"
+      ],
+      "confidence_level": "LOW",
+      "checked_at": "2026-10-30T17:19:47.572869+08:00",
+      "counterevidence_search": {
+        "queries": [
+          "離線檢索題目：金額、更正、原始財報"
+        ],
+        "status": "NONE_FOUND",
+        "notes": "初判：題目有此金額；關鍵前提：須有原始財報；可推翻條件：原始數字或口徑不同。搜尋題目未含更正或原始文件；保留UNVERIFIED。 未查外網。"
+      }
+    },
+    {
+      "verdict_id": "V3",
+      "claim_id": "C3",
+      "verdict": "MISLEADING",
+      "evidence_summary": "K1算術可重現-50%，但全年與單季不可直接作趨勢比較；同比需2025第一季，環比需2025第四季。",
+      "strongest_support": [],
+      "strongest_counterevidence": [
+        "E3"
+      ],
+      "source_quality": "單一合成題目；不構成實際營收或管理層行為的獨立驗證。",
+      "limitations": [
+        "唯一素材是使用者題目合成數據；未取得報導、公司身分、財報或獨立來源。",
+        "禁止連線，未搜尋外網；僅檢索題目文字。",
+        "未知財年、會計口徑、季節性與2025第一季、2025第四季及2026全年數字。",
+        "語義拆解、證據關係、反證策略與判定由 agent 撰寫；CLI 僅驗證及排版。"
+      ],
+      "confidence_level": "HIGH",
+      "checked_at": "2026-10-30T17:19:47.572869+08:00",
+      "counterevidence_search": {
+        "queries": [
+          "離線檢索題目：全年、第一季、相同比較期間"
+        ],
+        "status": "FOUND",
+        "notes": "初判：可能誤用基準；關鍵前提：期間可比。反向檢索發現「全年」與「第一季」，推翻可比前提；判MISLEADING。 未查外網。"
+      }
+    },
+    {
+      "verdict_id": "V4",
+      "claim_id": "C4",
+      "verdict": "UNVERIFIED",
+      "evidence_summary": "數據與跨期差異未提供不實陳述、故意、交易或調查證據，不能成立詐欺推論；未驗證不等於已證明無詐欺。",
+      "strongest_support": [],
+      "strongest_counterevidence": [],
+      "source_quality": "單一合成題目；不構成實際營收或管理層行為的獨立驗證。",
+      "limitations": [
+        "唯一素材是使用者題目合成數據；未取得報導、公司身分、財報或獨立來源。",
+        "禁止連線，未搜尋外網；僅檢索題目文字。",
+        "未知財年、會計口徑、季節性與2025第一季、2025第四季及2026全年數字。",
+        "語義拆解、證據關係、反證策略與判定由 agent 撰寫；CLI 僅驗證及排版。"
+      ],
+      "confidence_level": "LOW",
+      "checked_at": "2026-10-30T17:19:47.572869+08:00",
+      "counterevidence_search": {
+        "queries": [
+          "離線檢索題目：詐欺、不實陳述、故意、調查證據"
+        ],
+        "status": "NONE_FOUND",
+        "notes": "初判：證據不足；關鍵前提：財務變動能證明詐欺。反向檢索題目未見行為或故意證據；可推翻條件為新增可核實相關證據，惟禁止補入。保留UNVERIFIED，不作無罪斷言。 未查外網。"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "from": "E3",
+      "to": "C3",
+      "type": "CONTRADICTS"
+    },
+    {
+      "from": "K1",
+      "to": "S1",
+      "type": "CALCULATED_FROM"
+    },
+    {
+      "from": "Q1",
+      "to": "S1",
+      "type": "QUOTES"
+    },
+    {
+      "from": "C1",
+      "to": "S1",
+      "type": "REPORTED_BY"
+    },
+    {
+      "from": "C2",
+      "to": "S1",
+      "type": "REPORTED_BY"
+    },
+    {
+      "from": "C4",
+      "to": "S1",
+      "type": "REPORTED_BY"
+    }
+  ],
+  "search_log": [
+    {
+      "query": "離線檢索題目：金額、更正、原始財報",
+      "provider": "agent：僅閱讀及搜尋題目文字",
+      "searched_at": "2026-10-30T17:19:47.572869+08:00",
+      "status": "NONE_FOUND",
+      "notes": "初判：題目有此金額；關鍵前提：須有原始財報；可推翻條件：原始數字或口徑不同。搜尋題目未含更正或原始文件；保留UNVERIFIED。 範圍僅S1，外部搜尋依指示未執行。"
+    },
+    {
+      "query": "離線檢索題目：金額、更正、原始財報",
+      "provider": "agent：僅閱讀及搜尋題目文字",
+      "searched_at": "2026-10-30T17:19:47.572869+08:00",
+      "status": "NONE_FOUND",
+      "notes": "初判：題目有此金額；關鍵前提：須有原始財報；可推翻條件：原始數字或口徑不同。搜尋題目未含更正或原始文件；保留UNVERIFIED。 範圍僅S1，外部搜尋依指示未執行。"
+    },
+    {
+      "query": "離線檢索題目：全年、第一季、相同比較期間",
+      "provider": "agent：僅閱讀及搜尋題目文字",
+      "searched_at": "2026-10-30T17:19:47.572869+08:00",
+      "status": "FOUND",
+      "notes": "初判：可能誤用基準；關鍵前提：期間可比。反向檢索發現「全年」與「第一季」，推翻可比前提；判MISLEADING。 範圍僅S1，外部搜尋依指示未執行。"
+    },
+    {
+      "query": "離線檢索題目：詐欺、不實陳述、故意、調查證據",
+      "provider": "agent：僅閱讀及搜尋題目文字",
+      "searched_at": "2026-10-30T17:19:47.572869+08:00",
+      "status": "NONE_FOUND",
+      "notes": "初判：證據不足；關鍵前提：財務變動能證明詐欺。反向檢索題目未見行為或故意證據；可推翻條件為新增可核實相關證據，惟禁止補入。保留UNVERIFIED，不作無罪斷言。 範圍僅S1，外部搜尋依指示未執行。"
+    }
+  ]
+}

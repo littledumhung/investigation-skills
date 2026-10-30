@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-10-30",
+  "checked_at": "2026-10-30T17:17:58.339121+08:00",
+  "mode": "quick",
+  "summary": "月球與地球的平均距離約為384,400公里，有NASA官方科普資料支持。這是平均值，不能當成任一時刻的固定距離；本例由Agent實際查詢與讀取後建立JSON，CLI只驗證與格式化。",
+  "limitations": [
+    "本例使用NASA官方科普頁，未重新分析軌道測量原始數據。",
+    "兩頁同屬NASA，不計作兩份已證明獨立的證據。",
+    "來源發布日期未驗證，保留null；取用時間不代表發布時間。"
+  ],
+  "precise_wording": "月球與地球的平均距離約384,400公里，實際距離會隨軌道位置變動。",
+  "claims": [
+    {
+      "claim_id": "C1",
+      "original_text": "月球離地球平均約384,400公里。",
+      "normalized_claim": "地月平均距離約384,400公里。",
+      "claim_type": "NUMERIC",
+      "subject": "月球與地球",
+      "predicate": "平均距離",
+      "object": "約384,400公里",
+      "time_scope": "一般軌道近似值，非即時距離",
+      "geographic_scope": "全球",
+      "required_evidence": [
+        "官方天文資料及平均值定義"
+      ],
+      "checkability": "CHECKABLE",
+      "ambiguity": [],
+      "dependencies": []
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S1",
+      "url": "https://science.nasa.gov/moon/facts/",
+      "missing_reason": null,
+      "title": "Moon Facts — NASA Science",
+      "author": "NASA",
+      "published_at": null,
+      "updated_at": null,
+      "accessed_at": "2026-10-30T17:17:58.339121+08:00",
+      "kind": "PRIMARY",
+      "derived_from": [],
+      "content": "the Moon would be about as big as a coffee bean. The Moon is an average of 238,855 miles (384,400 kilometers) away. That means 30 Earth-sized planets could fit in between Earth and the Moon. The Moon is slowly moving away from Ear",
+      "content_sha256": "a70e94b06fdc9f63905caf08a610f9f35685001b12a6000dc5e87092c13a170e",
+      "independence_group": "NASA",
+      "publication_type": "OFFICIAL_EXPLAINER",
+      "correction_status": "NONE_KNOWN",
+      "accessible": true,
+      "event_at": null,
+      "spoken_at": null,
+      "collected_at": null,
+      "effective_from": null,
+      "effective_until": null
+    },
+    {
+      "source_id": "S2",
+      "url": "https://spaceplace.nasa.gov/moon-distance/en/",
+      "missing_reason": null,
+      "title": "How Far Away Is the Moon? — NASA Space Place",
+      "author": "NASA",
+      "published_at": null,
+      "updated_at": null,
+      "accessed_at": "2026-10-30T17:17:58.339121+08:00",
+      "kind": "PRIMARY",
+      "derived_from": [],
+      "content": "’t be fooled! They’re actually really far apart. The Moon is an average of 238,855 miles (384,400 km) away. How far away is that? That’s 30 Earths. Average distance? Why mention the average distance? Well, the Moon is not always t",
+      "content_sha256": "dacbd637bf7bdfac309a063dc0c14e697d2c69f23c33850b104dbf3d6b0df5de",
+      "independence_group": "NASA",
+      "publication_type": "OFFICIAL_EXPLAINER",
+      "correction_status": "NONE_KNOWN",
+      "accessible": true,
+      "event_at": null,
+      "spoken_at": null,
+      "collected_at": null,
+      "effective_from": null,
+      "effective_until": null
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "claim_id": "C1",
+      "source_id": "S1",
+      "relation": "SUPPORTS",
+      "summary": "NASA資料列出平均距離384,400公里。",
+      "locator": "Size and Distance"
+    },
+    {
+      "evidence_id": "E2",
+      "claim_id": "C1",
+      "source_id": "S2",
+      "relation": "CONTEXT",
+      "summary": "頁面明確區分平均距離與持續變動的實際距離。",
+      "locator": "Article body"
+    }
+  ],
+  "quotes": [],
+  "datasets": [],
+  "calculations": [],
+  "contradictions": [],
+  "verdicts": [
+    {
+      "verdict_id": "V1",
+      "claim_id": "C1",
+      "verdict": "TRUE",
+      "evidence_summary": "官方資料支持平均值，不支持固定距離的延伸解讀。",
+      "strongest_support": [
+        "E1"
+      ],
+      "strongest_counterevidence": [],
+      "source_quality": "NASA官方科普解說；非獨立重算原始測量。",
+      "limitations": [
+        "本例使用NASA官方科普頁，未重新分析軌道測量原始數據。",
+        "兩頁同屬NASA，不計作兩份已證明獨立的證據。",
+        "來源發布日期未驗證，保留null；取用時間不代表發布時間。"
+      ],
+      "confidence_level": "HIGH",
+      "checked_at": "2026-10-30T17:17:58.339121+08:00",
+      "counterevidence_search": {
+        "queries": [
+          "site.science.nasa.gov moon facts average distance 384400 kilometers"
+        ],
+        "status": "NONE_FOUND",
+        "notes": "實際搜尋並讀取NASA Moon Facts與Space Place。未發現反駁約數平均值的證據；Space Place指出距離會變動，限制了固定距離解讀。同機構資料不視為獨立交叉驗證。"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "from": "E1",
+      "to": "C1",
+      "type": "SUPPORTS"
+    }
+  ],
+  "search_log": [
+    {
+      "query": "site.science.nasa.gov moon facts average distance 384400 kilometers",
+      "provider": "web search + pinned HTTPS fetch",
+      "searched_at": "2026-10-30T17:17:58.339121+08:00",
+      "status": "COMPLETED",
+      "notes": "公開官方資料，兩頁實際下載並核對；查核日期採Asia/Taipei。"
+    }
+  ]
+}
